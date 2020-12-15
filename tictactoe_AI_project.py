@@ -5,9 +5,6 @@ X = "X"
 O = "O"
 EMPTY = " "
 
-''''''
-
-
 def initial_state():
     return [[EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY],
