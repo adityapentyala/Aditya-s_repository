@@ -1,15 +1,22 @@
 """
 This is a simple CUI tic tac toe game against an AI program 
-which plays ideally, i.e., can never be beaten. It can only
-draw or win.
+which can play ideally, i.e., can never be beaten. It can only
+draw or win. There are 3 difficulty settings - easy, in which
+the AI will behave erratically 25% of the time, normal, in
+which it will behave erratically 10% of the time, and hard, 
+which will always make the ideal move.
 """
 
 import math
 import copy
+import random
 
 X = "X"
 O = "O"
 EMPTY = " "
+
+''''''
+
 
 def initial_state():
     return [[EMPTY, EMPTY, EMPTY],
@@ -108,22 +115,26 @@ def minimax(board):
     if terminal(board):
         return None
     optimalaction = None
-    if player(board) == X:
-        bestval = -math.inf
-        for act in actions(board):
-            value = minval(result(board, act))
-            if bestval < value:
-                bestval = value
-                optimalaction = act
+    if random.random() < chance:
+        optimalaction = random.choice(actions(board))
         return optimalaction
-    elif player(board) == O:
-        bestval = math.inf
-        for act in actions(board):
-            value = maxval(result(board, act))
-            if bestval > value:
-                bestval = value
-                optimalaction = act
-        return optimalaction
+    else:
+        if player(board) == X:
+            bestval = -math.inf
+            for act in actions(board):
+                value = minval(result(board, act))
+                if bestval < value:
+                    bestval = value
+                    optimalaction = act
+            return optimalaction
+        elif player(board) == O:
+            bestval = math.inf
+            for act in actions(board):
+                value = maxval(result(board, act))
+                if bestval > value:
+                    bestval = value
+                    optimalaction = act
+            return optimalaction
 
 
 def maxval(board):
@@ -193,6 +204,15 @@ def user_input(user):
 if __name__ == '__main__':
     print_instructions()
     playing = True
+    global chance
+    chance = 0
+    diff = int(input("Select difficulty level: Easy(1) | Normal(2) | Hard(3) : "))
+    if diff == 1:
+        chance = 0.25
+    elif diff == 2:
+        chance = 0.15
+    elif diff == 3:
+        chance = 0
     while playing:
         user = input("Would you like to be X or O? (X starts): ").upper()
         while user != X and user != O:
@@ -241,3 +261,4 @@ if __name__ == '__main__':
             playing = True
         else:
             playing = False
+
