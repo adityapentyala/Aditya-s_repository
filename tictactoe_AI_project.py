@@ -214,7 +214,7 @@ if __name__ == '__main__':
     if diff == 1:
         chance = 0.25
     elif diff == 2:
-        chance = 0.15
+        chance = 0.10
     elif diff == 3:
         chance = 0
     while playing:
