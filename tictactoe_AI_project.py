@@ -1,3 +1,9 @@
+"""
+This is a simple CUI tic tac toe game against an AI program 
+which plays ideally, i.e., can never be beaten. It can only
+draw or win.
+"""
+
 import math
 import copy
 
